@@ -1,49 +1,31 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Psychic Game</title>
+	<title>A Psychic Game</title>
+
+	<meta name="viewport" content="width=device-width" initial-scale=1.0">
+	<!-- Link to Reset CSS to Zero out browsers default CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<!-- Link to CSS Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
 </head>
-
 <body>
-    <div id="game">
-        <h1> The Psychic Game </h1>
-        <p>Guess what letter I'm thinking of</p>
-        <p>Wins:</p>
-        <p>Losses:</p>
-        <p>Guesses Left:</p>
-        <p>Your Guesses so far:</p>
-    </div>
-
-    <script type="text/javascript">
-
-        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-         "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
-
-        var wins = 0;
-        var losses = 0;
-        var numGuesses = 9;
-        var guessChoices = [];
-
-        document.onkeyup = function (event) {
-
-            var userGuess = event.key;
-
-            var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-
-            var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-             "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
-
-
-
-
-            }
-        };
-
-    </script>
-
+	<div class="wrapper">
+		<div class="container">
+			<div class="header">
+				<h1>A Psychic Game</h1>
+				<h3>I am thinking of a letter between A and Z</h3>
+				<h3>You have 13 guesses.</h3>
+			</div>
+			<div class="main_section" id="game_output">
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	<!-- Link to JavaScript to build the game -->
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>
-
 </html>

@@ -1,59 +1,94 @@
-// Creates an array that lists out all of the options (a through z).
-var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-    "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// Global Variables
 
-// Creating variables to hold the number of wins, losses, guess left and used.
-var wins = 0;
-var losses = 0;
-var numofGuessesLeft = 9;
-var guessChoicesUsed = [];
-var openLetters = [];
+let correct = 0;
+let incorrect = 0;
+let guessesLeft = 13;
+let guessesSoFar = [];
+let pyschicChoice = "";
+let userGuess = "";
 
-resetGame();
-display();
+// array of all the letters in the english alphabet
+let alphabet = [
+			"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+			"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+			];
 
-document.onkeyup = function (event) {
-    var userGuess = event.key;
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+// for loop through the alphabet array
+// for (let i = 0; i < alphabet.length; i++) {
+// 		// console.log(alphabet[i]);
+// 	};
 
-    if (guess === openLetters) {
-        win();
-      } else if (numofGuessesLeft - 1 === 0) {
-        lost();
-      } else {
-        fail(guess);
-      }
-    
-      display();
-    }
-    
-    function display() {
-      var wins = document.getElementById("wins");
-      var loses = document.getElementById("loses");
-      var numofGuessesLeft = document.getElementById("number of guesses left");
-      var guessChoicesUsed = document.getElementById("guess choices used");
-      wins.innerHTML = wins;
-      loses.innerHTML = loses;
-      numofGuessesLeft.innerHTML = numofGuessesLeft;
-      guessChoicesUsed.innerHTML = guessChoicesUsed.join(',');
-    }
-    
-    function win() {
-      wins++;
-      resetGame();
-    }
-    
-    function lost() {
-      loses++;
-      resetGame();
-    }
-    
-    function fail(letter) {
-      numofGuessesLeft--;
-      guessChoicesUsed.push(letter);
-    }
-    
-   
-    
+// Randomly chooses a letter from the alphabet array. This is the psychic's choice.
 
-            }
+let pyschic = () =>  {
+	pyschicChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+	// console.log(pyschicChoice);
+
+}
+
+// Function to Reset Game to original settings
+let resetGame = () => {
+	guessesLeft = 13;
+	guessesSoFar = [];
+	pyschic();
+};
+
+
+
+
+
+
+// Grab users keystroke to intput there guess at the letter and start the game
+document.onkeyup = (event) => {
+
+	userGuess = event.key.toLowerCase();
+
+	pyschic();
+
+	console.log(userGuess);
+
+
+	if (userGuess == pyschicChoice) {
+		correct++;
+		alertWin();
+	} 
+	if (userGuess != pyschicChoice) {
+		guessesLeft--;
+		guessesSoFar.push(userGuess);
+	
+
+
+
+	// Output to place on the webpage
+	let html = 
+		"<p>Guesses Left </p>" +
+		"<p>"+ guessesLeft + "</p>" +
+		"<p>Letters Guessed</p>" + 
+		"<p>"+ guessesSoFar + "</p>" +
+		"<br>" +
+		"<p>Correct </p>" + 
+		"<p>"+ correct + "</p>" +
+		"<p>Incorrect </p>" + 
+		"<p>"+ incorrect + "</p>";
+
+	// Set the inner HTML contents of the game_output id to our html string
+    document.querySelector("#game_output").innerHTML = html;
+
+    if ( guessesLeft === 0 ) {
+		incorrect++;
+		alertLoss();
+		}
+	}
+
+};
+
+let alertWin = () => {
+	alert("Congratulations I was thinking of " + pyschicChoice + ".");
+	resetGame();
+};
+
+let alertLoss = () => {
+	alert("I am sorry you are incorrect, I was thinking of " + pyschicChoice + ". " + "You Guessed " + userGuess + ".");
+	resetGame();
+};
